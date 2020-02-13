@@ -4,9 +4,13 @@ node {
         git 'https://github.com/Mahsuda/Nodejs_app.git'
 
     }
-
-    stage("Build, tag image ") {
+    stage("Build Image"){
         sh "docker build  -t first_repo:${APP_VERSION} . "
+
+    }
+
+    stage("image Tag ") {
+        sh '''docker build  -t first_repo:${APP_VERSION} 541244714219.dkr.ecr.eu-west-1.amazonaws.com/first_repo:${APP_VERSION}  . '''
 
     }
     stage("login to ECR") {
