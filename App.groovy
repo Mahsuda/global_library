@@ -5,12 +5,12 @@ node {
 
     }
     stage("Build Image"){
-        sh "docker build  -t first_repo:${APP_VERSION} . "
+        sh "docker build  -t first_repo:${APP_VERSION} ."
 
     }
 
     stage("image Tag ") {
-        sh '''docker build  -t first_repo:${APP_VERSION} 541244714219.dkr.ecr.eu-west-1.amazonaws.com/first_repo:${APP_VERSION}  . '''
+        sh '''docker tag first_repo:${APP_VERSION} 541244714219.dkr.ecr.eu-west-1.amazonaws.com/first_repo:${APP_VERSION}'''
 
     }
     stage("login to ECR") {
@@ -18,6 +18,7 @@ node {
 
     }
     stage("docker push") {
+        sh "docker images"
         sh "docker push 541244714219.dkr.ecr.eu-west-1.amazonaws.com/first_repo:${APP_VERSION}"
 
     }
